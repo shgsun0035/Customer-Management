@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body> 
+		<div class="container">
+            <!-- Start NavBar Area -->
+			<div class="container container-relative">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="indexAdmin.xhtml">Home</a></li>
+							<li><a href="indexCustomer.xhtml">Customer</a></li>
+							<li><a href="indexCustomerContact.xhtml">Customer Contact</a></li>
+							<li><a href="indexTypeOfIndustry.xhtml">Industry</a></li>
+							<li><a href="indexNormalUser.xhtml">Normal User</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="indexCurrentAdmin.xhtml">#{currentAdminManagedBean.currentAdmin.clientName}</a></li>
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			<!-- End NavBar Area -->
+			
+			<p>#{title.pageTitle} - Normal User</p>
+
+            <h:form id="MyForm">        	
+
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... --> 
+                    <tr>
+                            <td> 
+                                <h:outputLabel id="clientId" value="ID"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="clientEmail" value="Email"  />
+                            </td>
+          
+                            <td> 
+                                <h:outputLabel id="clientName" value="Name"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="clientRole" value="Role"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="normalUserWorkNumber" value="Work Number"/>
+                            </td>
+                            
+                     </tr>
+                    
+                    <ui:repeat id="Myrepeat" value="#{normalUserApplicationScoped.normalUsers}"  var="normalUser" varStatus="status"> 
+                        
+                        <tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outClientName').textContent"> 
+                            <td>
+                                <h:outputText id="outClientId" value="#{normalUserApplicationScoped.normalUsers.get(status.index).clientId}"  /> 
+                                
+                            </td>
+                            
+                            <td> 
+                                <h:outputText id="outClientEmail" value="#{normalUserApplicationScoped.normalUsers.get(status.index).clientEmail}"  />
+                            </td>
+                            <td>
+                                <h:outputText id="outClientName" value="#{normalUserApplicationScoped.normalUsers.get(status.index).clientName}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outClientRole" value="#{normalUserApplicationScoped.normalUsers.get(status.index).clientRole}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outNormalUserWorkNumber" value="#{normalUserApplicationScoped.normalUsers.get(status.index).normalUserWorkNumber}"></h:outputText>
+                            </td>
+                            
+                            <td>
+                                <h:link value="View | " outcome="detailNormalUser.xhtml">
+                                  <f:param name="frontEndNormalUserId" value="#{normalUser.clientId + 1}"/>
+                                </h:link>
+                                
+                                <h:link value="Edit | " outcome="editNormalUser.xhtml">
+                                  <f:param name="frontEndNormalUserId" value="#{normalUser.clientId + 1}"/>
+                                </h:link>
+                                
+                                <h:commandLink value="Delete" action="#{removeNormalUser.removeNormalUser(normalUser.clientId)}" 
+                                	disabled="#{normalUser.clientId == null}" >
+                                </h:commandLink>
+                                    
+                            </td>
+                            
+                        </tr> 
+
+                    </ui:repeat> 
+
+                </table>
+                
+                <div>
+                    <h:commandButton id="add" value="Add" action="addNormalUser.xhtml" class="btn btn-primary" />
+                
+                    <h:commandButton id="refresh" value="Refresh" action="#{normalUserApplicationScoped.findAll()}" class="btn btn-primary" >
+                        <f:param name="propertyID" value="#{normalUser.clientId + 1}"/>
+                    </h:commandButton>
+                </div> 
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+        <title>#{title.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Add Admin
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                
+                <table class="table table-bordered ">
+                
+                    <tr class="#{!clientEmail.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Email" for="clientEmail" />
+                        </td>
+                        <td>
+                            <h:inputText id="clientEmail" value="#{addAdmin.clientEmail}" title="clientEmail" required="true" requiredMessage="Please enter the Client Email!" pt:placeholder="Client Email"> 
+							</h:inputText>
+                            <br/>
+                            <h:message for="clientEmail" class="#{!clientEmail.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    </tr>
+
+                    <tr class="#{!clientName.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Name" for="clientName" />
+                        </td>
+                        <td>
+                            <h:inputText id="clientName" value="#{addAdmin.clientName}" title="clientName" required="true" requiredMessage="Please enter the Client Name!" pt:placeholder="Client Name"></h:inputText>
+                            <br/>
+                            <h:message for="clientName" class="#{!clientName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+
+                    <tr class="#{!adminTitle.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Title" for="adminTitle" />
+                        </td>
+                        <td>
+                            <h:inputText id="adminTitle" value="#{addAdmin.adminTitle}" title="adminTitle" required="true" requiredMessage="Please enter the Title!" pt:placeholder="Admin Title">
+							</h:inputText>
+							<br/>
+							<h:message for="adminTitle" class="#{!adminTitle.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>         
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="New Password" for="normalUserWorkNumber" />
+                        </td>
+                        
+                         <td valign="bottom">
+                            <h:inputSecret id="clientPassword" value="#{passwordValidation.newPassword}" required="true" requiredMessage="Please enter a Client Password.">          	                                 		
+                           	</h:inputSecret>   
+                            <br />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Confirm Password" for="normalUserWorkNumber" />
+                        </td>
+                        
+                         <td valign="bottom">
+                            <h:inputSecret id="clientPassword2" value="#{passwordValidation.confirmPassword}" required="true" requiredMessage="Please enter a Client Password.">                          		
+                           	</h:inputSecret>   
+                            <br />
+                            <h:outputText id="result2" value="#{passwordValidation.checkSamePassword(passwordValidation.newPassword, passwordValidation.confirmPassword)}" style="color: red"/>
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+                <p style="color:blue">Note: Please [Validate Password] before [Submit] - To ensure passwords save correctly</p>
+                
+               	<h:commandButton id="validatePassword" value="Validate Password"  class="btn btn-primary" >
+                    <f:ajax execute="clientPassword clientPassword2" render="result2" />              
+                </h:commandButton>
+                <br/>
+                <br/>                
+                <h:commandButton id="submit" value="Submit" action="#{addAdmin.addAdmin(addAdmin.clientEmail, 
+                	addAdmin.clientName, passwordValidation.newPassword, addAdmin.adminTitle)}" class="btn btn-primary" >
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexAdmin.xhtml"
+						class="btn btn-primary" />
+            	
+            </h:form>
+			
+        </f:view>
+            </div>
+        </div>
+       
+    </h:body>
+</html>
+

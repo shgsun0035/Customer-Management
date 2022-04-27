@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+        <title>#{title.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Add Customer
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                
+                <table class="table table-bordered ">
+                
+                    <tr class="#{!streetNumber.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Street Number" for="streetNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="streetNumber" value="#{localCustomer.streetNumber}" title="streetNumber" required="true" requiredMessage="Please enter the street number!" validatorMessage="Please enter a street number between 1 and 1000" converterMessage="Please enter a number" pt:placeholder="900">
+	                            <f:convertNumber integerOnly="true"/>
+								<f:validateLongRange minimum="1" maximum="1000" /> 
+							</h:inputText>
+                            <br/>
+                            <h:message for="streetNumber" class="#{!streetNumber.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    </tr>
+
+                    <tr class="#{!streetAddress.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Street Address" for="streetAddress" />
+                        </td>
+                        <td>
+                            <h:inputText id="streetAddress" value="#{localCustomer.streetAddress}" title="streetAddress" required="true" requiredMessage="Please enter the street number!" pt:placeholder="900"></h:inputText>
+                            <br/>
+                            <h:message for="streetAddress" class="#{!streetAddress.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                     <tr class="#{!suburb.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Suburb" for="suburb" />
+                        </td>
+                        <td>
+                            <h:inputText id="suburb" value="#{localCustomer.suburb}" title="suburb" required="true" requiredMessage="Please enter the suburb!" pt:placeholder="Caulfield East" ></h:inputText>
+                        	<br/>
+                            <h:message for="suburb" class="#{!suburb.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr class="#{!state.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="State" for="state"/>
+                        </td>
+                        <td>
+                            <h:inputText id="state" value="#{localCustomer.state}" title="state" size="3" required="true" requiredMessage="Please enter the state!" pt:placeholder="VIC" ></h:inputText>
+                            <br/>
+                            <h:message for="state" class="#{!state.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!postcode.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Postcode" for="postcode" />
+                        </td>
+                        <td>
+                            <h:inputText id="postcode" value="#{localCustomer.postcode}" title="postcode" required="true" requiredMessage="Please enter the postcode!" validatorMessage="Please enter a postcode between 0200 and 4700" converterMessage="Please enter a number" pt:placeholder="3145">
+	                            <f:convertNumber integerOnly="true"/>
+								<f:validateLongRange minimum="200" maximum="4700" /> 
+							</h:inputText>
+							<br/>
+							<h:message for="postcode" class="#{!postcode.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Name" for="customerName" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerName" value="#{localCustomer.customerName}" title="Name" required="true" requiredMessage="Please enter the customer name!" pt:placeholder="Customer Name"></h:inputText>
+                           	<br/>
+                           	<h:message for="customerName" class="#{!customerName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                    	<td>
+                            <h:outputLabel value="Industry" for="typeofIndustry"/>
+                        </td>
+                    	<td>
+                    		<h:selectOneMenu id = "typeofIndustry" value = "#{localCustomer.typeOfIndustryId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerManagedBean.allTypeOfIndustry}" var = "typeOfIndustries" itemLabel = "#{typeOfIndustries.typeOfIndustryName}" itemValue = "#{typeOfIndustries.typeOfIndustryId}" />
+                    		</h:selectOneMenu>
+                    	</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Phone Number" for="customerPhoneNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerPhoneNumber" value="#{localCustomer.customerPhoneNumber}" title="Phone Number" required="true" requiredMessage="Please enter the customer phone number!" pt:placeholder="Customer phone number">
+                           	</h:inputText>
+                           	<br/>
+                           	<h:message for="customerPhoneNumber" class="#{!price.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Email" for="customerEmail" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerEmail" value="#{localCustomer.customerEmail}" title="Email" required="true" requiredMessage="Please enter the customer email!" pt:placeholder="Customer Email"></h:inputText>
+                           	<br/>
+                           	<h:message for="customerEmail" class="#{!customerEmail.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Website" for="customerWebsite" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerWebsite" value="#{localCustomer.customerWebsite}" title="Website" required="true" requiredMessage="Please enter the customer website!" pt:placeholder="Customer Website">
+                           	</h:inputText>
+                           	<br/>
+                           	<h:message for="customerWebsite" class="#{!customerWebsite.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Description" for="customerDescription" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerDescription" value="#{localCustomer.customerDescription}" title="Description" required="true" requiredMessage="Please enter the customer description!" pt:placeholder="Customer Description">
+                           	</h:inputText>
+                           	<br/>
+                           	<h:message for="customerDescription" class="#{!customerDescription.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr>
+                    	<td>
+                            <h:outputLabel value="Normal User" for="normalUser"/>
+                        </td>
+                    	<td>
+                    		<h:selectOneMenu id = "normalUser" value = "#{localCustomer.clientId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerManagedBean.allNormalUsers}" var = "normalUsers" itemLabel = "#{normalUsers.clientName}" itemValue = "#{normalUsers.clientId}" />
+                    		</h:selectOneMenu>
+                    	</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                </table>
+                
+                <h:commandButton id="submit" value="Submit" action="#{currentNormalUserAddCustomer.addCustomer(localCustomer)}" class="btn btn-primary" >
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexCustomer.xhtml"
+						class="btn btn-primary" />
+            	
+            </h:form>
+			
+        </f:view>
+            </div>
+        </div>
+       
+    </h:body>
+</html>
+

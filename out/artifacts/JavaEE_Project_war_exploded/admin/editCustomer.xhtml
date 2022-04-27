@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Edit Customer
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Id:</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{editDetailSingleCustomer.customer.customerId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Street Number</td>
+                        <td valign="bottom">
+                            <h:inputText id = "streetNumber" value="#{editDetailSingleCustomer.customer.address.streetNumber}" binding="#{streetNumber}" required="true"
+                                         validatorMessage="Please enter a valid street number."
+                                         requiredMessage="Please enter a street number."></h:inputText>
+                            <br />
+                            <h:message for="streetNumber" class="#{!streetNumber.valid ? 'label label-warning' : 'none'}" />    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Street Address</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "streetAddress" value="#{editDetailSingleCustomer.customer.address.streetAddress}"  required="true"
+                                         validatorMessage="Please enter a valid street address."
+                                         requiredMessage="Please enter a street address."></h:inputText>
+                            <br />
+                            <h:message for="streetAddress" class="#{!streetAddress.valid ? 'label label-warning' : 'none'}" />  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Suburb</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "suburb" value="#{editDetailSingleCustomer.customer.address.suburb}"  required="true"
+                                         validatorMessage="Please enter a valid suburb."
+                                         requiredMessage="Please enter a suburb."></h:inputText>   
+                            <br />
+                            <h:message for="suburb" class="#{!suburb.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">State</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "state" value="#{editDetailSingleCustomer.customer.address.state}"  required="true"
+                                         validatorMessage="Please enter a valid state."
+                                         requiredMessage="Please enter a state."></h:inputText>
+                            <br />
+                            <h:message for="state" class="#{!state.valid ? 'label label-warning' : 'none'}" />                                     
+                        </td>  
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Postcode</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "postcode" value="#{editDetailSingleCustomer.customer.address.postcode}"  required="true"
+                                         validatorMessage="Please enter a valid postcode."
+                                         requiredMessage="Please enter a postcode."></h:inputText>  
+                            <br />
+                            <h:message for="postcode" class="#{!postcode.valid ? 'label label-warning' : 'none'}" />                                         
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Name</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "name" value="#{editDetailSingleCustomer.customer.customerName}"  required="true"
+                                         validatorMessage="Please enter a valid customer name."
+                                         requiredMessage="Please enter a customer name."></h:inputText>  
+                            <br />
+                            <h:message for="name" class="#{!name.valid ? 'label label-warning' : 'none'}" />
+                        </td>  
+                    </tr>
+                    <tr>
+                    	<td width ="100" valign="top">Industry</td>
+                    	<td>
+                    		<h:selectOneMenu id = "typeofIndustry" value = "#{editDetailSingleCustomer.customer.typeOfIndustry.typeOfIndustryId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerManagedBean.allTypeOfIndustry}" var = "typeOfIndustries" itemLabel = "#{typeOfIndustries.typeOfIndustryName}" itemValue = "#{typeOfIndustries.typeOfIndustryId}" />
+                    		</h:selectOneMenu>
+                    		<br />
+                    		<h:message for="typeofIndustry" class="#{!typeofIndustry.valid ? 'label label-warning' : 'none'}" />
+                    	</td>	
+                    </tr>
+
+                    <tr>
+                        <td width ="100" valign="top">Phone Number</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "phoneNumber" value="#{editDetailSingleCustomer.customer.customerPhoneNumber}"  required="true"
+                                         validatorMessage="Only accept Australian phone number"
+                                         requiredMessage="Please enter a customer phone number">
+                            	  <f:validateRegex pattern="^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$" />           
+                            </h:inputText>  
+                            <br />
+                            <h:message for="phoneNumber" class="#{!phoneNumber.valid ? 'label label-warning' : 'none'}" />
+                        </td>                     
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Email</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "email" value="#{editDetailSingleCustomer.customer.customerEmail}"  required="true"
+                                         validatorMessage="Please enter a valid customer email"
+                                         requiredMessage="Please enter a customer email">
+                            	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />               
+                            </h:inputText> 
+                            <br /> 
+                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Website</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "website" value="#{editDetailSingleCustomer.customer.customerWebsite}"  required="true"
+                                         validatorMessage="Please enter a valid customer website"
+                                         requiredMessage="Please enter a customer website">
+                            	 <f:validateRegex pattern="^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$" />            
+                            </h:inputText>
+                            <br />
+                            <h:message for="website" class="#{!website.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Description</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "description" value="#{editDetailSingleCustomer.customer.customerDescription}"  required="true"
+                                         validatorMessage="Please enter a valid customer description"
+                                         requiredMessage="Please enter a customer description"></h:inputText>
+                            <br />
+                            <h:message for="description" class="#{!description.valid ? 'label label-warning' : 'none'}" />  
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td width ="100" valign="top">Normal User</td>
+                    	
+                    	<td>
+                    		<h:selectOneMenu id = "normalUser" value = "#{editDetailSingleCustomer.customer.normalUser.clientId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerManagedBean.allNormalUsers}" var = "normalUsers" itemLabel = "#{normalUsers.clientName}" itemValue = "#{normalUsers.clientId}" />
+                    		</h:selectOneMenu>
+                    	</td>
+                    </tr>
+                    
+                </table>
+                
+                <h:commandButton id="save" value="Save" action="#{customerManagedBean.editCustomer(editDetailSingleCustomer.customer)}"  class="btn btn-primary" >
+                    <f:param name="frontEndCustomerId" value="#{editDetailSingleCustomer.frontEndCustomerId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexCustomer.xhtml"
+						class="btn btn-primary" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

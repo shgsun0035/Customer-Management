@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://java.sun.com/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Edit Normal User
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Id</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "ClientId" >#{editDetailSingleNormalUser.normalUser.clientId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Email</td>
+                        <td valign="bottom">
+                            <h:outputLabel id = "ClientEmail" >#{editDetailSingleNormalUser.normalUser.clientEmail}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Name</td>
+                        <td valign="bottom">
+                            <h:outputLabel id = "ClientName" >#{editDetailSingleNormalUser.normalUser.clientName}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Work Number</td>
+                        <td valign="bottom">
+                            <h:outputLabel id = "NormalUserWorkNumber" >#{editDetailSingleNormalUser.normalUser.normalUserWorkNumber}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Password</td>
+                        
+                         <td valign="bottom">
+                            <h:inputSecret id="clientPassword" value="#{passwordValidation.newPassword}" required="true" requiredMessage="Please enter a Client Password.">          	                                 		
+                           	</h:inputSecret>   
+                            <br />
+                            <h:outputText id="result" value="#{passwordValidation.checkNormalUserOriginalPassword(passwordValidation.newPassword)}" style="color: red"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Confirm Password</td>
+                        
+                         <td valign="bottom">
+                            <h:inputSecret id="clientPassword2" value="#{passwordValidation.confirmPassword}" required="true" requiredMessage="Please enter a Client Password.">                          		
+                           	</h:inputSecret>   
+                            <br />
+                            <h:outputText id="result2" value="#{passwordValidation.checkSamePassword(passwordValidation.newPassword, passwordValidation.confirmPassword)}" style="color: red"/>
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+                <p style="color:blue">Note: Please [Validate Password] before [Submit] - To ensure passwords save correctly</p>
+                
+               	<h:commandButton id="validatePassword" value="Validate Password"  class="btn btn-primary" >
+               		<f:param name="frontEndNormalUserId" value="#{editDetailSingleNormalUser.frontEndNormalUserId+1}"/>
+					<f:ajax execute="clientPassword" render="result" />
+                    <f:ajax execute="clientPassword clientPassword2" render="result2" />              
+                </h:commandButton>
+                <br/>
+                <br/>
+                <h:commandButton id="save" value="Save" onclick="" action="#{normalUserManagedBean.editNormalUser(editDetailSingleNormalUser.normalUser, passwordValidation.newPassword)}"  class="btn btn-primary" >
+                    <f:param name="frontEndNormalUserId" value="#{editDetailSingleNormalUser.frontEndNormalUserId+1}"/>
+                    
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexNormalUser.xhtml"
+						class="btn btn-primary" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

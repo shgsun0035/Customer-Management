@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body>         
+		<div class="container">  
+			<!-- Start NavBar Area -->
+			<div class="container">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="/faces/index.xhtml">Home</a></li>
+							<li><a href="/faces/webservice.xhtml">Web Service</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/faces/admin/indexAdmin.xhtml">Access Admin</a></li>
+ 							<li><a href="/faces/normaluser/indexNormalUser.xhtml">Access Normal User</a></li>
+ 							
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			
+			<p>Welcome to #{title.pageTitle}</p>
+		</div>
+		
+    </h:body>
+</html>

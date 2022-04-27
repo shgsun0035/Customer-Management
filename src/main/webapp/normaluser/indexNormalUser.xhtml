@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body> 
+		<div class="container">
+            <!-- Start NavBar Area -->
+			<div class="container container-relative">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="indexNormalUser.xhtml">Home</a></li>
+							<li><a href="indexCustomer.xhtml">Customer</a></li>
+							<li><a href="indexCustomerContact.xhtml">Customer Contact</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="indexNormalUser.xhtml">#{currentNormalUserManagedBean.currentNormalUser.clientName}</a></li>
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			<!-- End NavBar Area -->
+			
+			<p>#{title.pageTitle} - #{currentNormalUserManagedBean.currentNormalUser.clientName}</p>
+
+            <h:form id="MyForm"> 
+
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... --> 
+                    <tr>
+                            <td> 
+                                <h:outputLabel id="clientId" value="ID"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="clientEmail" value="Email"  />
+                            </td>
+          
+                            <td> 
+                                <h:outputLabel id="clientName" value="Name"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="clientRole" value="Role"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="normalUserWorkNumber" value="Work Number"/>
+                            </td>
+                            
+                     </tr>
+                        
+                        <tr> 
+                            <td>
+                                <h:outputText id="outClientId" value="#{currentNormalUserManagedBean.currentNormalUser.clientId}"  /> 
+                                
+                            </td>
+                            
+                            <td> 
+                                <h:outputText id="outClientEmail" value="#{currentNormalUserManagedBean.currentNormalUser.clientEmail}"  />
+                            </td>
+                            <td>
+                                <h:outputText id="outClientName" value="#{currentNormalUserManagedBean.currentNormalUser.clientName}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outClientRole" value="#{currentNormalUserManagedBean.currentNormalUser.clientRole}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outNormalUserWorkNumber" value="#{currentNormalUserManagedBean.currentNormalUser.normalUserWorkNumber}"></h:outputText>
+                            </td>
+                            
+                            <td>
+                                <h:link value="Change Password" outcome="editNormalUser.xhtml">
+                                  <f:param name="frontEndNormalUserId" value="#{currentNormalUserManagedBean.currentNormalUser.clientId + 1}"/>
+                                </h:link>
+                                    
+                            </td>
+                            
+                        </tr>
+
+                </table>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

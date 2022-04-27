@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	    <title>#{title.pageTitle}</title> 
+	    <h:outputScript library="javax.faces" name="jsf.js"/> 
+	    <script type = "text/javascript">  
+
+		</script> 
+	</h:head>
+	<h:body>
+	
+		<div class="container">  
+			<!-- Start NavBar Area -->
+			<div class="container">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="/faces/index.xhtml">Home</a></li>
+							<li><a href="/faces/webservice.xhtml">Web Service</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="/faces/admin/indexAdmin.xhtml">Access Admin</a></li>
+ 							<li><a href="/faces/normaluser/indexNormalUser.xhtml">Access Normal User</a></li>
+ 							
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			
+			<h4>Type Of Industry</h4>
+			<h:form>
+		      
+	            <table class="table table-bordered ">
+	
+	                    <tr class="#{!typeOfIndustryName.valid ? 'has-error' : 'none'}">
+	                        <td>
+	                            <h:outputLabel value="Industry Name" for="typeOfIndustryName" />
+	                        </td>
+	                        <td>
+	                            <h:inputText id="typeOfIndustryName" value="#{webServiceManagedBean.typeOfIndustryName}" title="typeOfIndustryName" required="true" requiredMessage="Please enter the Industry Name!">
+ 	                            	<f:ajax event="blur" render="resultName"/>	                            	
+	                            </h:inputText>
+	                            <br/>
+	                            <h:message for="typeOfIndustryName" class="#{!typeOfIndustryName.valid ? 'label label-warning' : 'none'}" />
+	                            <h:outputText id="resultName" value = "#{webServiceManagedBean.checkIndustryNameWebServiceClient(webServiceManagedBean.typeOfIndustryName)}" style="color: red"/>
+	                        </td>
+	                    
+	                    </tr>
+	                  
+	             </table>
+	             <h:commandButton id="submit" value="Add Industry" action="#{webServiceManagedBean.setWebServiceClient}" class="btn btn-primary"></h:commandButton>
+				 <h:outputText value="  " />
+				 <a href="webresources/industry/getindustry">View All Industries</a>
+				 
+				 <br />
+				 <br />
+				 <p>Welcome to #{title.pageTitle}</p>
+			</h:form>
+		</div>	
+	</h:body>
+</html>

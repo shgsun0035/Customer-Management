@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - View Customer
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+                    <tr>
+                        <td width ="150" valign="top">Id</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{currentNormalUserEditDetailSingleCustomer.customer.customerId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                     <tr>
+                        <td width ="100" valign="top">Address</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Address" >#{currentNormalUserEditDetailSingleCustomer.customer.address}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Name</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Name" >#{currentNormalUserEditDetailSingleCustomer.customer.customerName}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Industry</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "typeOfIndustry" >#{currentNormalUserEditDetailSingleCustomer.customer.typeOfIndustry.typeOfIndustryName}</h:outputLabel>              
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Phone Number</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "CustomerPhoneNumber" >#{currentNormalUserEditDetailSingleCustomer.customer.customerPhoneNumber}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Email</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "CustomerEmail" >#{currentNormalUserEditDetailSingleCustomer.customer.customerEmail}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Website</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "CustomerWebsite" >#{currentNormalUserEditDetailSingleCustomer.customer.customerWebsite}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Description</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "CustomerDescription" >#{currentNormalUserEditDetailSingleCustomer.customer.customerDescription}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                 </table>   
+                 <h:link id="close" value="Close" outcome="indexCustomer.xhtml"
+						class="btn btn-primary" />
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

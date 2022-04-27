@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body> 
+		<div class="container">
+            <!-- Start NavBar Area -->
+			<div class="container container-relative">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="indexAdmin.xhtml">Home</a></li>
+							<li><a href="indexCustomer.xhtml">Customer</a></li>
+							<li><a href="indexCustomerContact.xhtml">Customer Contact</a></li>
+							<li><a href="indexTypeOfIndustry.xhtml">Industry</a></li>
+							<li><a href="indexNormalUser.xhtml">Normal User</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="indexCurrentAdmin.xhtml">#{currentAdminManagedBean.currentAdmin.clientName}</a></li>
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			<!-- End NavBar Area -->
+			
+			<p>#{title.pageTitle} - Industry</p>
+
+            <h:form id="MyForm">        	
+
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... --> 
+                    <tr>
+                            <td> 
+                                <h:outputLabel id="typeOfIndustryId" value="Industry ID"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="typeOfIndustryName" value="Industry Name"  />
+                            </td>
+                            
+                     </tr>
+                    
+                    <ui:repeat id="Myrepeat" value="#{typeOfIndustryApplicationScoped.typeOfIndustries}"  var="typeOfIndustry" varStatus="status"> 
+                        
+                        <tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outTypeOfIndustryName').textContent"> 
+                            <td>
+                                <h:outputText id="typeOfIndustryId" value="#{typeOfIndustryApplicationScoped.typeOfIndustries.get(status.index).typeOfIndustryId}" /> 
+                                
+                            </td>
+                            
+                            <td> 
+                                <h:outputText id="outTypeOfIndustryName" value="#{typeOfIndustryApplicationScoped.typeOfIndustries.get(status.index).typeOfIndustryName}"  />
+                            </td>
+                            
+                            <td>
+                                <h:link value="View | " outcome="detailTypeOfIndustry.xhtml">
+                                  <f:param name="frontEndTypeOfIndustryId" value="#{typeOfIndustry.typeOfIndustryId + 1}"/>
+                                </h:link>
+
+                                <h:link value="Edit | " outcome="editTypeOfIndustry.xhtml">
+                                  <f:param name="frontEndTypeOfIndustryId" value="#{typeOfIndustry.typeOfIndustryId + 1}"/>
+                                </h:link>
+                                
+                                <h:commandLink value="Delete" action="#{removeTypeOfIndustry.removeTypeOfIndustry(typeOfIndustry.typeOfIndustryId)}" 
+                                	disabled="#{typeOfIndustry.typeOfIndustryId == null}" >
+                                </h:commandLink>
+                            </td>
+                            
+                        </tr> 
+
+                    </ui:repeat> 
+
+                </table>
+                
+                <div>
+                    <h:commandButton id="add" value="Add" action="addTypeOfIndustry.xhtml" class="btn btn-primary" />
+                
+                    <h:commandButton id="refresh" value="Refresh" action="#{customerContactApplicationScoped.findAll()}" class="btn btn-primary" >
+                        <f:param name="propertyID" value="#{typeOfIndustry.typeOfIndustryId + 1}"/>
+                    </h:commandButton>
+                </div>                
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

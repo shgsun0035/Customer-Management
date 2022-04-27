@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+        <title>#{title.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Add Customer Contact
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                
+                <table class="table table-bordered ">
+                
+                    <tr class="#{!customerContactName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Name" for="customerContactName" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerContactName" value="#{addCustomerContact.customerContactName}" title="customerContactName" required="true" requiredMessage="Please enter the Customer Contact Name!" pt:placeholder="Contact Name"> 
+							</h:inputText>
+                            <br/>
+                            <h:message for="customerContactName" class="#{!customerContactName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    </tr>
+
+                    <tr class="#{!customerContactPhoneNumber.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Phone Number" for="customerContactPhoneNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerContactPhoneNumber" value="#{addCustomerContact.customerContactPhoneNumber}" title="customerContactPhoneNumber" required="true" requiredMessage="Please enter the Customer Contact Phone Number!" pt:placeholder="Contact Phone Number"></h:inputText>
+                            <br/>
+                            <h:message for="customerContactPhoneNumber" class="#{!customerContactPhoneNumber.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                    	<td>
+                            <h:outputLabel value="Gender" for="customerContactDob"/>
+                        </td>
+	                    <td valign="bottom">
+	                            <h:selectOneMenu id = "customerContactGender" value = "#{addCustomerContact.customerContactGender}" >
+	                    			<f:selectItem itemValue = "male" itemLabel = "male" />
+	                    			<f:selectItem itemValue = "female" itemLabel = "female" />
+	                    		</h:selectOneMenu> 
+	                     </td>
+	                </tr>
+                    
+                    <tr class="#{!customerContactDob.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Date of Birth" for="customerContactDob"/>
+                        </td>
+                        <td>
+                            <h:inputText id="customerContactDob" value="#{addCustomerContact.customerContactDob}" title="customerContactDob" required="true" requiredMessage="Please enter the Date of Birth!" pt:placeholder="Contact Date of Birth" >
+                            	<f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="customerContactDob" class="#{!customerContactDob.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!customerContactWorkYears.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Work Years" for="customerContactWorkYears" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerContactWorkYears" value="#{addCustomerContact.customerContactWorkYears}" title="customerContactWorkYears" required="true" requiredMessage="Please enter the Work Years!" pt:placeholder="Contact Work Years">
+							</h:inputText>
+							<br/>
+							<h:message for="customerContactWorkYears" class="#{!customerContactWorkYears.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                    	<td>
+                            <h:outputLabel value="Customer" for="customer"/>
+                        </td>
+                    	<td>
+                    		<h:selectOneMenu id = "customer" value = "#{addCustomerContact.customerId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerContactManagedBean.allCustomers}" var = "customers" itemLabel = "#{customers.customerName}" itemValue = "#{customers.customerId}" />
+                    		</h:selectOneMenu>
+                    	</td>
+                    </tr>           
+                    
+                </table>
+                
+                <h:commandButton id="submit" value="Submit" action="#{addCustomerContact.addCustomerContact(addCustomerContact.customerContactName, 
+                	addCustomerContact.customerContactPhoneNumber, addCustomerContact.customerContactGender, addCustomerContact.customerContactDob, 
+                	addCustomerContact.customerContactWorkYears, addCustomerContact.customerId)}" class="btn btn-primary" >
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexCustomerContact.xhtml"
+						class="btn btn-primary" />
+            	
+            </h:form>
+			
+        </f:view>
+            </div>
+        </div>
+       
+    </h:body>
+</html>
+

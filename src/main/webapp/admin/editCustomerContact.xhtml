@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{title.pageTitle} - Edit Customer Contact
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Id</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{editDetailSingleCustomerContact.customerContact.customerContactId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Name</td>
+                        <td valign="bottom">
+                            <h:inputText id = "customerContactName" value="#{editDetailSingleCustomerContact.customerContact.customerContactName}" required="true"
+                                         requiredMessage="Please enter a Customer Contact Name."></h:inputText>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Phone Number</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "customerContactPhoneNumber" value="#{editDetailSingleCustomerContact.customerContact.customerContactPhoneNumber}"  required="true"
+                                         requiredMessage="Please enter a Customer Contact Phone Number."></h:inputText>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Gender</td>
+                        
+                         <td valign="bottom">
+	                            <h:selectOneMenu id = "customerContactGender" value = "#{editDetailSingleCustomerContact.customerContact.customerContactGender}" >
+	                    			<f:selectItem itemValue = "male" itemLabel = "male" />
+	                    			<f:selectItem itemValue = "female" itemLabel = "female" />
+	                    		</h:selectOneMenu> 
+	                     </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Date of Birth</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "customerContactDob" value="#{editDetailSingleCustomerContact.customerContact.customerContactDob}"  required="true"
+                                         requiredMessage="Please enter a Customer Contact Data of Birth.">
+                            	<f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:inputText>  
+                                                                     
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Work Years</td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "customerContactWorkYears" value="#{editDetailSingleCustomerContact.customerContact.customerContactWorkYears}"  required="true"
+                                         validatorMessage="Please enter a valid postcode."
+                                         requiredMessage="Please enter a postcode."></h:inputText>  
+                                                                     
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td width ="100" valign="top">Customer</td>
+                    	
+                    	<td>
+                    		<h:selectOneMenu id = "customer" value = "#{editDetailSingleCustomerContact.customerContact.customer.customerId}" >
+                    			<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+                    			<f:selectItems value = "#{customerContactManagedBean.allCustomers}" var = "customers" itemLabel = "#{customers.customerName}" itemValue = "#{customers.customerId}" />
+                    		</h:selectOneMenu>
+                    	</td>
+                    </tr>
+                    
+                </table>
+                
+                <h:commandButton id="save" value="Save" action="#{customerContactManagedBean.editCustomerContact(editDetailSingleCustomerContact.customerContact)}"  class="btn btn-primary" >
+                    <f:param name="frontEndCustomerContactId" value="#{editDetailSingleCustomerContact.frontEndCustomerContactId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="indexCustomerContact.xhtml"
+						class="btn btn-primary" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

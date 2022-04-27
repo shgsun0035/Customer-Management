@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body> 
+		<div class="container">
+            <!-- Start NavBar Area -->
+			<div class="container container-relative">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+    					<div class="navbar-header">
+      						<a class="navbar-brand" >#{title.pageTitle}</a>
+    					</div>
+    					<ul class="nav navbar-nav">
+							<li><a href="indexNormalUser.xhtml">Home</a></li>
+							<li><a href="indexCustomer.xhtml">Customer</a></li>
+							<li><a href="indexCustomerContact.xhtml">Customer Contact</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="indexNormalUser.xhtml">#{currentNormalUserManagedBean.currentNormalUser.clientName}</a></li>
+						</ul>
+  					</div>
+				</nav>
+			</div>
+			<!-- End NavBar Area -->
+			
+			<p>#{title.pageTitle} - Customer Contact</p>
+
+            <h:form id="MyForm">        	
+
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... --> 
+                    <tr>
+                            <td> 
+                                <h:outputLabel id="customerContactId" value="Customer Contact ID"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="customerContactName" value="Name"  />
+                            </td>
+          
+                            <td> 
+                                <h:outputLabel id="customerContactPhoneNumer" value="Phone Number"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="customerContactGender" value="Gender"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="customerContactDob" value="Date of Birth"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="customerContactWorkYears" value="Work Years"/>
+                            </td>
+                            
+                            <td> 
+                                <h:outputLabel id="customer" value="Customer"/>
+                            </td>
+                            
+                     </tr>
+                    
+                    <ui:repeat id="Myrepeat" value="#{currentNormalUserApplicationScoped.customerContacts}"  var="customerContact" varStatus="status"> 
+                        
+                        <tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outCustomerContactName').textContent"> 
+                            <td>
+                                <h:outputText value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactId}" id="customerContactId" /> 
+                                
+                            </td>
+                            
+                            <td> 
+                                <h:outputText id="outCustomerContactName" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactName}"  />
+                            </td>
+                            <td>
+                                <h:outputText id="outCustomerContactPhoneNumer" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactPhoneNumber}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outCustomerContactGender" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactGender}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outCustomerContactDob" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactDob}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outCustomerContactWorkYears" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customerContactWorkYears}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outCustomerName" value="#{currentNormalUserApplicationScoped.customerContacts.get(status.index).customer.customerName}"></h:outputText>
+                            </td>
+                            
+                            <td>
+                                <h:link value="View | " outcome="detailCustomerContact.xhtml">
+                                  <f:param name="frontEndCustomerContactId" value="#{customerContact.customerContactId + 1}"/>
+                                </h:link>
+
+                                <h:link value="Edit | " outcome="editCustomerContact.xhtml">
+                                  <f:param name="frontEndCustomerContactId" value="#{customerContact.customerContactId + 1}"/>
+                                </h:link>
+                                
+                                <h:commandLink value="Delete" action="#{currentNormalUserRemoveCustomerContact.removeCustomerContact(customerContact.customerContactId)}"/>
+                                    
+                            </td>
+                            
+                        </tr> 
+
+                    </ui:repeat> 
+
+                </table>
+                
+                <div>
+                    <h:commandButton id="add" value="Add" action="addCustomerContact.xhtml" class="btn btn-primary" />
+                
+                    <h:commandButton id="refresh" value="Refresh" action="#{currentNormalUserApplicationScoped.findAllCustomerContactList()}" class="btn btn-primary" >
+                        <f:param name="propertyID" value="#{customerContact.customerContactId + 1}"/>
+                    </h:commandButton>
+                </div>                
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
+
+	<h:head>
+		<h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+	     <title>#{title.pageTitle}</title> 
+	</h:head> 
+	<h:body>
+		<div class="container">
+			<!-- Start NavBar Area -->
+			<div class="container container-relative">
+				
+				<nav id="nav" class="navbar navbar-inverse">
+					<div class="container-fluid">
+		  					<div class="navbar-header">
+		    						<a class="navbar-brand" >#{title.pageTitle}</a>
+		  					</div>
+		  					<ul class="nav navbar-nav">
+							<li><a href="indexAdmin.xhtml">Home</a></li>
+							<li><a href="indexCustomer.xhtml">Customer</a></li>
+							<li><a href="indexCustomerContact.xhtml">Customer Contact</a></li>
+							<li><a href="indexTypeOfIndustry.xhtml">Industry</a></li>
+							<li><a href="indexNormalUser.xhtml">Normal User</a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="indexCurrentAdmin.xhtml">#{currentAdminManagedBean.currentAdmin.clientName}</a></li>
+						</ul>
+							</div>
+				</nav>
+			</div>
+			<!-- End NavBar Area -->
+			
+			<p>#{title.pageTitle} - Customer</p>
+		
+	       <h:form id="MyForm">        	
+			   <div>
+			   		<tr>
+			        	<td>
+			            	<h:outputLabel value="Industry" for="typeofIndustry"/>
+			            </td>
+			            <td>
+			             	<h:selectOneMenu id = "typeofIndustry" value = "#{searchCustomer.typeOfIndustryId}" >
+			             		<f:selectItem itemValue = "#{null}" itemLable = "--select--" />
+			             		<f:selectItems value = "#{customerManagedBean.allTypeOfIndustry}" var = "typeOfIndustries" itemLabel = "#{typeOfIndustries.typeOfIndustryName}" itemValue = "#{typeOfIndustries.typeOfIndustryId}" />
+			             	</h:selectOneMenu>
+			            </td>
+			         </tr>
+		              
+		           	 <h:inputText value="#{searchCustomer.customerName}" id="searchByCustomerName" onchange ="if (document.getElementById('MyForm:customerName').value.trim() == '') {document.getElementById('MyForm:customerName').value = '';} " pt:placeholder="Customer Name" ></h:inputText>
+		          
+		           	 <h:commandButton id="searchByTypeOfIndustryAndCustomerName" value="Search" action="#{searchCustomer.searchCustomerByTypeOfIndustryAndCustomerName(searchCustomer.typeOfIndustryId, searchCustomer.customerName)}" class="btn btn-primary" >
+		             	<f:param name="propertyID" value="#{status.index + 1}"/>
+		             </h:commandButton>
+		             <h:commandButton id="viewAll" value="View All" action="#{customerApplicationScoped.findAll()}" class="btn btn-primary" >
+		                <f:param name="propertyID" value="#{customer.customerId + 1}"/>
+		            </h:commandButton>
+		       </div>
+	
+		       <table class="table table-bordered table-striped">
+		            <!-- For each property in properties ArrayList... --> 
+		            <tr>
+		                <td> 
+		                    <h:outputLabel id="customerId" value="Customer ID"  />
+		                </td>
+		                <td> 
+		                    <h:outputLabel id="customerName" value="Customer Name"  />
+		                </td>
+		
+		                <td> 
+		                    <h:outputLabel id="typeOfIndustry" value="Industry"/>
+		                </td>
+		                
+		                <td> 
+		                    <h:outputLabel id="customerPhoneNumber" value="Phone Number"/>
+		                </td>
+		                
+		                <td> 
+		                    <h:outputLabel id="customerEmail" value="Email"/>
+		                </td>
+		                
+		                <td> 
+		                    <h:outputLabel id="customerWebsite" value="Website"/>
+		                </td>
+		                
+		                <td> 
+		                    <h:outputLabel id="customerDescription" value="Description"/>
+		                </td>
+		           </tr>
+		            
+		           <ui:repeat id="Myrepeat" value="#{customerApplicationScoped.customers}"  var="customer" varStatus="status"> 
+		               
+		               <tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outCustomerName').textContent"> 
+		                   <td>
+		                       <h:outputText value="#{customerApplicationScoped.customers.get(status.index).customerId}" id="customerId" /> 
+		                   </td>
+		                   <td> 
+		                       <h:outputText id="outCustomerName" value="#{customerApplicationScoped.customers.get(status.index).customerName}"  />
+		                   </td>
+		                   <td>
+		                       <h:outputText id="outTypeOfIndustry" value="#{customerApplicationScoped.customers.get(status.index).typeOfIndustry.typeOfIndustryName}"></h:outputText>
+		                   </td>
+		                   <td>
+		                       <h:outputText id="outCustomerPhoneNumber" value="#{customerApplicationScoped.customers.get(status.index).customerPhoneNumber}"></h:outputText>
+		                   </td>
+		                   <td>
+		                       <h:outputText id="outCustomerEmail" value="#{customerApplicationScoped.customers.get(status.index).customerEmail}"></h:outputText>
+		                   </td>
+		                   <td>
+		                       <h:outputText id="outCustomerWebsite" value="#{customerApplicationScoped.customers.get(status.index).customerWebsite}"></h:outputText>
+		                   </td>
+		                   <td>
+		                       <h:outputText id="outCustomerDescription" value="#{customerApplicationScoped.customers.get(status.index).customerDescription}"></h:outputText>
+		                   </td>
+		                   <td>
+		                       <h:link value="View | " outcome="detailCustomer.xhtml">
+		                         <f:param name="frontEndCustomerId" value="#{customer.customerId + 1}"/>
+		                       </h:link>
+		
+		                       <h:link value="Edit | " outcome="editCustomer.xhtml">
+		                         <f:param name="frontEndCustomerId" value="#{customer.customerId + 1}"/>
+		                       </h:link>
+		                       
+		                       <h:commandLink value="Delete" action="#{removeCustomer.removeCustomer(customer.customerId)}" 
+		                       	disabled="#{customer.customerId == null}" >
+		                       </h:commandLink>     
+		                   </td> 
+		               </tr>
+		           </ui:repeat> 
+		
+		        </table>
+	           
+		        <div>
+		            <h:commandButton id="add" value="Add" action="addCustomer.xhtml" class="btn btn-primary" />
+					<h:commandButton id="refresh" value="Refresh" action="#{customerApplicationScoped.findAll()}" class="btn btn-primary" >
+		                <f:param name="propertyID" value="#{customer.customerId + 1}"/>
+		            </h:commandButton>
+		        </div>
+	       </h:form>
+		</div>
+    </h:body>
+</html>
